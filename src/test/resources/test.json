@@ -1,0 +1,16 @@
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "age": 30,
+  "isStudent": true,
+  "courses": [
+    {
+      "title": "Introduction to Programming",
+      "credits": 3
+    },
+    {
+      "title": "Web Development Fundamentals",
+      "credits": 4
+    }
+  ]
+}
