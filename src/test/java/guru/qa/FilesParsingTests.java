@@ -21,6 +21,8 @@ public class FilesParsingTests {
     @Test
     @DisplayName("Проверка содержимого PDF-файла")
     void pdfFileParsingTest() throws Exception {
+        boolean isFilePresent = false;
+
         try(ZipInputStream zis = new ZipInputStream(cl.getResourceAsStream("test-files.zip"))) {
             ZipEntry entry;
 
@@ -28,17 +30,23 @@ public class FilesParsingTests {
                 String fileName = entry.getName();
 
                 if (fileName.endsWith(".pdf")) {
+                    isFilePresent = true;
+
                     PDF pdf = new PDF(zis);
                     assertTrue((pdf.text).contains("This is a test PDF document"));
                     break;
                 }
             }
+
+            assertTrue(isFilePresent, "Файл не найден");
         }
     }
 
     @Test
     @DisplayName("Проверка содержимого XLS-файла")
     void xlsFileParsingTest() throws Exception {
+        boolean isFilePresent = false;
+
         try(ZipInputStream zis = new ZipInputStream(cl.getResourceAsStream("test-files.zip"))) {
             ZipEntry entry;
 
@@ -46,6 +54,8 @@ public class FilesParsingTests {
                 String fileName = entry.getName();
 
                 if (fileName.endsWith(".xls")) {
+                    isFilePresent = true;
+
                     XLS xls = new XLS(zis);
 
                     String excelValue = xls.excel.getSheetAt(0).getRow(0).getCell(1).getStringCellValue();
@@ -55,12 +65,16 @@ public class FilesParsingTests {
                     break;
                 }
             }
+
+            assertTrue(isFilePresent, "Файл не найден");
         }
     }
 
     @Test
     @DisplayName("Проверка содержимого CSV-файла")
     void csvFileParsingTest() throws Exception {
+        boolean isFilePresent = false;
+
         try(ZipInputStream zis = new ZipInputStream(cl.getResourceAsStream("test-files.zip"))) {
             ZipEntry entry;
 
@@ -68,6 +82,8 @@ public class FilesParsingTests {
                 String fileName = entry.getName();
 
                 if (fileName.endsWith(".csv")) {
+                    isFilePresent = true;
+
                     CSVReader csvReader = new CSVReader(new InputStreamReader(zis));
 
                     List<String[]> data = csvReader.readAll();
@@ -85,6 +101,8 @@ public class FilesParsingTests {
                     break;
                 }
             }
+
+            assertTrue(isFilePresent, "Файл не найден");
         }
     }
 }
